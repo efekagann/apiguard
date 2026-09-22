@@ -1,4 +1,4 @@
-name: "ApiGuard"
+name: "ApiGuard OpenAPI Breaking Change Check"
 description: "Detects breaking changes between two versions of an OpenAPI spec and fails the build if any are found."
 author: "efekagann"
 branding:
