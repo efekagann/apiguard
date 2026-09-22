@@ -61,21 +61,22 @@ apiguard/
       çalışır, token yoksa sessizce atlar).
 - [x] `README.md` ve `.github/workflows/ci.yml` (push/PR'da `dotnet test`) eklendi.
 - [x] `examples/old-spec.yaml` + `examples/new-spec.yaml` — Docker image'ı lokal test etmek için örnek çift.
-- [ ] **Docker image lokal build/test edilmedi henüz** — Docker Desktop kullanıcı tarafından güncelleniyordu,
-      motor tekrar ayağa kalkması bekleniyor.
+- [x] **Docker image lokal build edildi ve test edildi.** İlk denemede `obj/`/`bin/` klasörleri
+      (host'taki local build'den kalma) image'a kopyalanıp container içindeki `dotnet restore` sonucunu
+      eziyordu (`NuGet fallback package folder` hatası) — `.dockerignore` eklenerek düzeltildi.
+      `docker run apiguard:local examples/old-spec.yaml examples/new-spec.yaml` → 2 breaking change doğru
+      tespit edildi, exit code 1. Aynı spec'i kendisiyle kıyaslayınca → "No breaking changes", exit code 0.
 
 ## Sıradaki adımlar (öncelik sırasıyla)
 
-1. **Docker image'ı build edip `examples/` altındaki spec çiftiyle lokal doğrula** (Docker Desktop
-   güncellemesi bitince devam).
-2. **Gerçek bir repo üzerinde uçtan uca test et** — ApiGuard'ı bir PR'da gerçekten çalıştır, PR yorumunun
-   doğru göründüğünü doğrula.
-3. **v1 tag'i at, GitHub Marketplace'e yayınla** (ücretsiz Action olarak).
-4. **Geri bildirim/kullanım topla** (yıldız, issue, kurulum sayısı).
-5. **Tutarsa:** GitHub App'e çevir, Marketplace'in ücretli plan sistemine bağla (bu adımda ASP.NET Core
+1. **Gerçek bir repo üzerinde uçtan uca test et** — ApiGuard'ı bir PR'da gerçekten çalıştır (README'deki
+   workflow örneğini kullanarak), PR yorumunun doğru göründüğünü doğrula.
+2. **v1 tag'i at, GitHub Marketplace'e yayınla** (ücretsiz Action olarak).
+3. **Geri bildirim/kullanım topla** (yıldız, issue, kurulum sayısı).
+4. **Tutarsa:** GitHub App'e çevir, Marketplace'in ücretli plan sistemine bağla (bu adımda ASP.NET Core
    ile küçük bir webhook servisi hostlamak gerekecek — Azure Container Apps / Fly.io / Railway gibi ucuz
    bir yerde).
-6. **Tutarsa (tekrar):** aynı dağıtım modeliyle benzer yeni fikirler dene (örn: GraphQL schema diff,
+5. **Tutarsa (tekrar):** aynı dağıtım modeliyle benzer yeni fikirler dene (örn: GraphQL schema diff,
    gRPC/protobuf breaking change detector gibi aynı paterni tekrar eden ürünler).
 
 ## Nasıl devam edilir (yeni oturumda)
