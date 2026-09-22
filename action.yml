@@ -1,0 +1,21 @@
+name: "ApiGuard"
+description: "Detects breaking changes between two versions of an OpenAPI spec and fails the build if any are found."
+author: "efekagann"
+branding:
+  icon: "shield"
+  color: "red"
+
+inputs:
+  old-spec-path:
+    description: "Path to the previous (base) version of the OpenAPI spec file."
+    required: true
+  new-spec-path:
+    description: "Path to the new (current) version of the OpenAPI spec file."
+    required: true
+
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.old-spec-path }}
+    - ${{ inputs.new-spec-path }}

@@ -1,3 +1,4 @@
+using ApiGuard.Cli;
 using ApiGuard.Core;
 using Microsoft.OpenApi.Readers;
 
@@ -58,5 +59,7 @@ foreach (var change in changes)
 var hasBreaking = changes.Any(c => c.Severity == ChangeSeverity.Breaking);
 Console.WriteLine();
 Console.WriteLine($"{changes.Count(c => c.Severity == ChangeSeverity.Breaking)} breaking, {changes.Count(c => c.Severity == ChangeSeverity.Warning)} warning.");
+
+await GitHubReporter.TryPostPullRequestCommentAsync(changes);
 
 return hasBreaking ? 1 : 0;

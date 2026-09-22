@@ -51,24 +51,31 @@ apiguard/
   - Response status code silinmiş → Warning
   - Response body'den alan silinmiş / tipi değişmiş → Breaking
 - [x] 5 xUnit testi yazıldı, hepsi geçiyor (`dotnet test`).
-- [x] Git repo init edildi, `.gitignore` eklendi. **Henüz commit atılmadı.**
-- [ ] Henüz GitHub'a push edilmedi (repo yok).
+- [x] Git repo init edildi, `.gitignore` eklendi.
+- [x] **GitHub'a push edildi:** https://github.com/efekagann/apiguard (public repo, `gh` CLI ile OAuth
+      device-flow üzerinden `efekagann` hesabına bağlanıldı).
+- [x] `Dockerfile` yazıldı (multi-stage: dotnet SDK ile publish, runtime image ile çalıştır).
+- [x] `action.yml` yazıldı (Docker container action, `old-spec-path` / `new-spec-path` inputları).
+- [x] `GitHubReporter.cs` eklendi: `GITHUB_TOKEN` + PR event payload'ından PR numarasını okuyup
+      breaking/warning listesini PR'a otomatik yorum olarak bırakıyor (sadece `pull_request` event'inde
+      çalışır, token yoksa sessizce atlar).
+- [x] `README.md` ve `.github/workflows/ci.yml` (push/PR'da `dotnet test`) eklendi.
+- [x] `examples/old-spec.yaml` + `examples/new-spec.yaml` — Docker image'ı lokal test etmek için örnek çift.
+- [ ] **Docker image lokal build/test edilmedi henüz** — Docker Desktop kullanıcı tarafından güncelleniyordu,
+      motor tekrar ayağa kalkması bekleniyor.
 
 ## Sıradaki adımlar (öncelik sırasıyla)
 
-1. **İlk commit'i at** (kullanıcı onayı ile — henüz sorulmadı/istenmedi).
-2. **Dockerfile + action.yml** yaz → `ApiGuard.Cli`'yi GitHub Action olarak paketle
-   (composite action değil, Docker container action; .NET runtime image kullan).
-3. **GitHub PR entegrasyonu:** `Program.cs`'e GitHub API ile PR'a yorum bırakma özelliği ekle
-   (`GITHUB_TOKEN`, `GITHUB_REPOSITORY`, `GITHUB_EVENT_PATH` env değişkenlerinden PR bilgisini oku).
-4. **Gerçek bir repo üzerinde test et** — iki farklı OpenAPI spec versiyonuyla dene, Action'ın PR'da
-   doğru çalıştığını doğrula.
-5. **GitHub Marketplace'e yayınla** (ücretsiz Action olarak) — public repo aç, README yaz, tag'le.
-6. **Geri bildirim/kullanım topla** (yıldız, issue, kurulum sayısı).
-7. **Tutarsa:** GitHub App'e çevir, Marketplace'in ücretli plan sistemine bağla (bu adımda ASP.NET Core
+1. **Docker image'ı build edip `examples/` altındaki spec çiftiyle lokal doğrula** (Docker Desktop
+   güncellemesi bitince devam).
+2. **Gerçek bir repo üzerinde uçtan uca test et** — ApiGuard'ı bir PR'da gerçekten çalıştır, PR yorumunun
+   doğru göründüğünü doğrula.
+3. **v1 tag'i at, GitHub Marketplace'e yayınla** (ücretsiz Action olarak).
+4. **Geri bildirim/kullanım topla** (yıldız, issue, kurulum sayısı).
+5. **Tutarsa:** GitHub App'e çevir, Marketplace'in ücretli plan sistemine bağla (bu adımda ASP.NET Core
    ile küçük bir webhook servisi hostlamak gerekecek — Azure Container Apps / Fly.io / Railway gibi ucuz
    bir yerde).
-8. **Tutarsa (tekrar):** aynı dağıtım modeliyle benzer yeni fikirler dene (örn: GraphQL schema diff,
+6. **Tutarsa (tekrar):** aynı dağıtım modeliyle benzer yeni fikirler dene (örn: GraphQL schema diff,
    gRPC/protobuf breaking change detector gibi aynı paterni tekrar eden ürünler).
 
 ## Nasıl devam edilir (yeni oturumda)
