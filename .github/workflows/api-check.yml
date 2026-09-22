@@ -1,0 +1,28 @@
+name: API Contract Check
+
+on:
+  pull_request:
+    paths:
+      - "openapi.yaml"
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  check-breaking-changes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get base spec
+        run: git show origin/${{ github.base_ref }}:openapi.yaml > old-spec.yaml
+
+      - uses: ./
+        with:
+          old-spec-path: old-spec.yaml
+          new-spec-path: openapi.yaml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

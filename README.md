@@ -21,6 +21,10 @@ name: API Contract Check
 on:
   pull_request:
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   check-breaking-changes:
     runs-on: ubuntu-latest
@@ -36,9 +40,11 @@ jobs:
         with:
           old-spec-path: old-spec.yaml
           new-spec-path: openapi.yaml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-If a breaking change is found, the action exits non-zero and fails the workflow run, with the list of changes printed in the job log.
+If a breaking change is found, the action exits non-zero and fails the workflow run, with the list of changes printed in the job log. When run on a `pull_request` event with `GITHUB_TOKEN` set, it also posts the change list as a PR comment (the `pull-requests: write` permission above is required for that).
 
 ## Local usage
 
