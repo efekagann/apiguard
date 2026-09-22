@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: Example API
-  version: "1.0"
+  version: "1.1"
 paths:
   /users/{id}:
     get:
@@ -11,6 +11,11 @@ paths:
           required: true
           schema:
             type: string
+        - name: includeDeleted
+          in: query
+          required: true
+          schema:
+            type: boolean
       responses:
         "200":
           description: OK
@@ -22,6 +27,4 @@ paths:
                   id:
                     type: string
                   name:
-                    type: string
-                  email:
                     type: string
