@@ -66,17 +66,22 @@ apiguard/
       eziyordu (`NuGet fallback package folder` hatası) — `.dockerignore` eklenerek düzeltildi.
       `docker run apiguard:local examples/old-spec.yaml examples/new-spec.yaml` → 2 breaking change doğru
       tespit edildi, exit code 1. Aynı spec'i kendisiyle kıyaslayınca → "No breaking changes", exit code 0.
+- [x] **Uçtan uca GitHub Actions testi yapıldı** (dogfood: `.github/workflows/api-check.yml`, `uses: ./`
+      ile kendi Action'ını kendi reposunda çalıştırıyor):
+  - **PR #1 (breaking change):** `check-breaking-changes` job'u **fail** oldu (doğru), `github-actions`
+    botu PR'a doğru breaking change listesini yorum olarak bıraktı.
+  - **PR #2 (safe/non-breaking change):** `check-breaking-changes` job'u **pass** oldu (doğru), hiç yorum
+    düşmedi (beklenen davranış — sadece değişiklik varsa yorum atılıyor).
+  - Her iki test PR'ı da doğrulama sonrası kapatıldı, test branch'leri silindi. `master` temiz kaldı.
 
 ## Sıradaki adımlar (öncelik sırasıyla)
 
-1. **Gerçek bir repo üzerinde uçtan uca test et** — ApiGuard'ı bir PR'da gerçekten çalıştır (README'deki
-   workflow örneğini kullanarak), PR yorumunun doğru göründüğünü doğrula.
-2. **v1 tag'i at, GitHub Marketplace'e yayınla** (ücretsiz Action olarak).
-3. **Geri bildirim/kullanım topla** (yıldız, issue, kurulum sayısı).
-4. **Tutarsa:** GitHub App'e çevir, Marketplace'in ücretli plan sistemine bağla (bu adımda ASP.NET Core
+1. **v1 tag'i at, GitHub Marketplace'e yayınla** (ücretsiz Action olarak).
+2. **Geri bildirim/kullanım topla** (yıldız, issue, kurulum sayısı).
+3. **Tutarsa:** GitHub App'e çevir, Marketplace'in ücretli plan sistemine bağla (bu adımda ASP.NET Core
    ile küçük bir webhook servisi hostlamak gerekecek — Azure Container Apps / Fly.io / Railway gibi ucuz
    bir yerde).
-5. **Tutarsa (tekrar):** aynı dağıtım modeliyle benzer yeni fikirler dene (örn: GraphQL schema diff,
+4. **Tutarsa (tekrar):** aynı dağıtım modeliyle benzer yeni fikirler dene (örn: GraphQL schema diff,
    gRPC/protobuf breaking change detector gibi aynı paterni tekrar eden ürünler).
 
 ## Nasıl devam edilir (yeni oturumda)
