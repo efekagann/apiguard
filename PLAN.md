@@ -74,14 +74,22 @@ apiguard/
     düşmedi (beklenen davranış — sadece değişiklik varsa yorum atılıyor).
   - Her iki test PR'ı da doğrulama sonrası kapatıldı, test branch'leri silindi. `master` temiz kaldı.
 
+- [x] **GitHub Marketplace'e yayınlandı:**
+      https://github.com/marketplace/actions/apiguard-openapi-breaking-change-check (`v1`, "Latest").
+      Not: Marketplace'teki görünen ad çakışma yüzünden "ApiGuard" değil "ApiGuard OpenAPI Breaking Change
+      Check" oldu (`action.yml`'de sadece bu alan değişti, repo/kod/Docker image adı hâlâ `apiguard`).
+      Yayınlamak için hesapta 2FA (iki faktörlü doğrulama) zorunluydu, kullanıcı bunu açtı.
+      Kullanım: `uses: efekagann/apiguard@v1`.
+
 ## Sıradaki adımlar (öncelik sırasıyla)
 
-1. **v1 tag'i at, GitHub Marketplace'e yayınla** (ücretsiz Action olarak).
-2. **Geri bildirim/kullanım topla** (yıldız, issue, kurulum sayısı).
-3. **Tutarsa:** GitHub App'e çevir, Marketplace'in ücretli plan sistemine bağla (bu adımda ASP.NET Core
+1. **Geri bildirim/kullanım topla** (yıldız, issue, kurulum sayısı). Pazarlama yeteneği sınırlı olduğu
+   için düşük efor, yüksek organik keşif kanallarına öncelik ver: r/dotnet, Hacker News "Show HN", dev.to,
+   GitHub Marketplace'in kendi arama/keşif trafiği.
+2. **Tutarsa:** GitHub App'e çevir, Marketplace'in ücretli plan sistemine bağla (bu adımda ASP.NET Core
    ile küçük bir webhook servisi hostlamak gerekecek — Azure Container Apps / Fly.io / Railway gibi ucuz
    bir yerde).
-4. **Tutarsa (tekrar):** aynı dağıtım modeliyle benzer yeni fikirler dene (örn: GraphQL schema diff,
+3. **Tutarsa (tekrar):** aynı dağıtım modeliyle benzer yeni fikirler dene (örn: GraphQL schema diff,
    gRPC/protobuf breaking change detector gibi aynı paterni tekrar eden ürünler).
 
 ## Nasıl devam edilir (yeni oturumda)
