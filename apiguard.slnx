@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/ApiGuard.Cli/ApiGuard.Cli.csproj" />
+    <Project Path="src/ApiGuard.Core/ApiGuard.Core.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/ApiGuard.Tests/ApiGuard.Tests.csproj" />
+  </Folder>
+</Solution>
